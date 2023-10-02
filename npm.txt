@@ -1,0 +1,26 @@
+git@github.com:CodeRamuri/mi-bootstrap.git
+me qude en el 20:10
+
+
+
+Todos las dependencias
+
+...bootstrap
+---jquery
+---popper.js
+
+
+Todas las dependencias de dasarrollo
+
+...webpack
+...webpack-cli
+...webpack-dev-server
+...html-webpack-plugin
+...node-sass
+...sass-loader
+...style-loader
+...css-loader
+...mini-css-extract-plugin
+...@babel/core
+...babel-loader
+...@babel/preset-env

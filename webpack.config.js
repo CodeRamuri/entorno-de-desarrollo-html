@@ -1,48 +1,45 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 module.exports = {
-  mode: 'development',
-  //mode: 'production',
-  devServer: {
-    watchFiles: ['./developer/**/*', './public/**/*'],
-    static: {
-      directory: path.join(__dirname, 'public')
-    },
-    open: true,
-    compress: true,
-    port: 9000,
-    hot: 'only',
-    liveReload: false,
-    magicHtml: true
-  },
-  entry: {
-    index: './developer/home/scrips.js',
-  },
+  mode: 'production',
+  //mode: 'development',
+  entry: './src/js/index.js',
   output: {
-    path: path.resolve(__dirname, './public'),
     filename: '[name].[contenthash].js',
-    publicPath: '',
+    path: path.resolve(__dirname, 'dist')
   },
-  module: {
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].[contenthash].css"
+    })
+  ],
+  module:{
     rules: [
       {
-        test: /\.(scss)$/,
-        use: [{
-          loader: 'style-loader', // inject CSS to page
-        }, {
-          loader: 'css-loader', // translates CSS into CommonJS modules
-        }, {
-          loader: 'postcss-loader', // Run post css actions
-          options: {
-            plugins: function () { // post css plugins, can be exported to postcss.config.js
-              return [
-                require('precss'),
-                require('autoprefixer')
-              ];
-            }
-          }
-        }, {
-          loader: 'sass-loader' // compiles Sass to CSS
-        }]
+        test: /\.(sa|sc|c)ss$/,
+        use:[
+          MiniCssExtractPlugin.loader, 
+          'css-loader', 
+          'sass-loader'
+        ]
+      },
+      {
+        test: /\.css$/i,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
+      {
+        use: 'babel-loader',
+        test: /.(js)$/,
+        exclude: /node_modules/
       }
     ]
   }
