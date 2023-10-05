@@ -5,15 +5,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
   mode: 'production',
   //mode: 'development',
-  entry: './src/js/index.js',
+  entry: './developer/js/index.js',
   output: {
     filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'public')
   },
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './src/index.html'
+      template: './developer/index.html'
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css"
