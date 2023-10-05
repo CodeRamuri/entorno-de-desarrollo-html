@@ -1,14 +1,5 @@
 //@import '~bootstrap/scss/bootstrap';
 
-$red: #cf09dc;
-$blue: #ccccdd;
-
-$theme-colors: (
-  "red": $red,
-  "blue": $blue
-);
-
-
 
 @import '~bootstrap/scss/mixins/banner';
 @include bsBanner("");
