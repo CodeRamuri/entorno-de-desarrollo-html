@@ -7,7 +7,8 @@ module.exports = {
   mode: 'production',
   //mode: 'development',
   entry: {
-    index: './developer/home/scripts.js'
+    index: './developer/home/scripts.js',
+    404: './developer/404/scripts.js'
   },
   output: {
     path: path.resolve(__dirname, './public'),
@@ -20,6 +21,11 @@ module.exports = {
       template: './developer/home/template.pug',
       filename: 'index.html',
       chunks: ['index']
+    }),
+    new HtmlWebpackPlugin({
+      template: './developer/404/template.pug',
+      filename: '404.html',
+      chunks: ['404']
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css"
