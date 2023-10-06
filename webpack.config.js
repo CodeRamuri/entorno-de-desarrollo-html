@@ -2,10 +2,9 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin  } = require('clean-webpack-plugin');
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
-  mode: 'production',
-  //mode: 'development',
   entry: {
     index: './developer/home/scripts.js',
     404: './developer/404/scripts.js'
@@ -14,6 +13,7 @@ module.exports = {
     path: path.resolve(__dirname, './public'),
     filename: '[name].[contenthash].js',
     publicPath: '',
+    assetModuleFilename: 'asset/[name].webp'
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -56,6 +56,40 @@ module.exports = {
         use: 'babel-loader',
         test: /.(js)$/,
         exclude: /node_modules/
+      },
+      {
+        type: 'asset/resource',
+        test: /\.(jpe?g|png|gif)$/i,
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        use: 
+        [
+          {
+            loader: ImageMinimizerPlugin.loader,
+            options: {
+              minimizerOptions: {
+                plugins: 
+                [
+                  ['gifsicle', { interlaced: false }],
+                  ['mozjpeg', { quality: 80 }],
+                  [
+                    'imagemin-svgo',
+                    {
+                      plugins: [
+                        {
+                          removeViewBox: false,
+                        },
+                      ],
+                    },
+                  ],
+                  'pngquant',
+                  'imagemin-webp'
+                ],
+              },
+            },
+          },
+        ],
       }
     ]
   }
